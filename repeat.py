@@ -19,12 +19,19 @@ def strip(s: str):
     return s.rstrip(punctuations + SLD).lstrip(punctuations)
 
 
+last_text = ""
+cnt = 0
+repeated = False
+
+
 def repeat(update, context):
+    global last_text, repeated, cnt
     if len(update.message.text) > 20:
         # do not flood
         return
-    length = len(strip(update.message.text))
-    if 1 <= length <= 3:
+    t = strip(update.message.text)
+    length = len(t)
+    if 1 <= length <= 10 and (t.endswith("！") or t.endswith("!")):
         # repeat 3 times with "!"
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=(strip_punctuation(update.message.text) + "！") * 3)
@@ -32,3 +39,15 @@ def repeat(update, context):
         # just repeat it
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=update.message.text)
+    elif update.message.text == last_text and cnt >= 1 and not repeated:
+        # repeat as follower
+        repeated = True
+        context.bot.send_message(chat_id=update.effective_chat.id,
+                                 text=update.message.text)
+    else:
+        if update.message.text != last_text:
+            last_text = update.message.text
+            cnt = 1
+            repeated = False
+        else:
+            cnt += 1
