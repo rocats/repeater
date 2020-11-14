@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  repeater:
+    build:
+      context: .
+    environment:
+      - TELEGRAM_APITOKEN
+    restart: unless-stopped
