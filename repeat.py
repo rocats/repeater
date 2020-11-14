@@ -31,7 +31,7 @@ def repeat(update, context):
         return
     t = strip(update.message.text)
     length = len(t)
-    if 1 <= length <= 10 and (t.endswith("！") or t.endswith("!")):
+    if 1 <= length <= 10 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
         # repeat 3 times with "!"
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=(strip_punctuation(update.message.text) + "！") * 3)
