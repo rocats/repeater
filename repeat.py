@@ -33,10 +33,12 @@ def repeat(update, context):
     length = len(t)
     if 1 <= length <= 10 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
         # repeat 3 times with "!"
+        repeated = True
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=(strip_punctuation(update.message.text) + "！") * 3)
     elif length == 0:
         # just repeat it
+        repeated = True
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=update.message.text)
     elif update.message.text == last_text and cnt >= 1 and not repeated:
@@ -44,10 +46,9 @@ def repeat(update, context):
         repeated = True
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text=update.message.text)
+    if update.message.text != last_text:
+        last_text = update.message.text
+        cnt = 1
+        repeated = False
     else:
-        if update.message.text != last_text:
-            last_text = update.message.text
-            cnt = 1
-            repeated = False
-        else:
-            cnt += 1
+        cnt += 1
