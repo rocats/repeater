@@ -1,6 +1,12 @@
 import unicodedata
 import sys
 
+from collections import defaultdict
+
+from telegram import Update
+from telegram.ext.callbackcontext import CallbackContext
+
+
 punctuations = ''.join(list(chr(i) for i in range(sys.maxunicode)
                             if unicodedata.category(chr(i)).startswith('P')))
 
@@ -19,36 +25,37 @@ def strip(s: str):
     return s.rstrip(punctuations + SLD).lstrip(punctuations)
 
 
-last_text = ""
-cnt = 0
-repeated = False
+last_text = defaultdict(str)
+cnt = defaultdict(int)
+repeated = defaultdict(bool)
 
 
-def repeat(update, context):
+def repeat(update: Update, context: CallbackContext):
     global last_text, repeated, cnt
     if len(update.message.text) > 20:
         # do not flood
         return
     t = strip(update.message.text)
     length = len(t)
+    chat_id = update.effective_chat.id
     if 1 <= length <= 10 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
         # repeat 3 times with "!"
-        repeated = True
-        context.bot.send_message(chat_id=update.effective_chat.id,
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id,
                                  text=(strip_punctuation(update.message.text) + "！") * 3)
     elif length == 0:
         # just repeat it
-        repeated = True
-        context.bot.send_message(chat_id=update.effective_chat.id,
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id,
                                  text=update.message.text)
-    elif update.message.text == last_text and cnt >= 1 and not repeated:
+    elif update.message.text == last_text[chat_id] and cnt[chat_id] >= 1 and not repeated[chat_id]:
         # repeat as follower
-        repeated = True
-        context.bot.send_message(chat_id=update.effective_chat.id,
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id,
                                  text=update.message.text)
-    if update.message.text != last_text:
-        last_text = update.message.text
-        cnt = 1
-        repeated = False
+    if update.message.text != last_text[chat_id]:
+        last_text[chat_id] = update.message.text
+        cnt[chat_id] = 1
+        repeated[chat_id] = False
     else:
-        cnt += 1
+        cnt[chat_id] += 1
