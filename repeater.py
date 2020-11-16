@@ -30,7 +30,7 @@ def main():
     dp = updater.dispatcher
 
     # log all errors
-    # dp.add_error_handler(error)
+    dp.add_error_handler(error)
 
     # add repeat handler
     dp.add_handler(MessageHandler(Filters.text & (~Filters.command), repeat))

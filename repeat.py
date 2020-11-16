@@ -32,6 +32,8 @@ repeated = defaultdict(bool)
 
 def repeat(update: Update, context: CallbackContext):
     global last_text, repeated, cnt
+    if update.message is None:
+        return
     if len(update.message.text) > 20:
         # do not flood
         return
