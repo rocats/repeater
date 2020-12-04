@@ -45,11 +45,11 @@ def repeat(update: Update, context: CallbackContext):
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id,
                                  text=(strip_punctuation(update.message.text) + "！") * 3)
-    elif length == 0:
-        # just repeat it
-        repeated[chat_id] = True
-        context.bot.send_message(chat_id=chat_id,
-                                 text=update.message.text)
+#     elif length == 0:
+#         # just repeat it
+#         repeated[chat_id] = True
+#         context.bot.send_message(chat_id=chat_id,
+#                                  text=update.message.text)
     elif update.message.text == last_text[chat_id] and cnt[chat_id] >= 1 and not repeated[chat_id]:
         # repeat as follower
         repeated[chat_id] = True
