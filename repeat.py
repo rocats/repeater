@@ -37,7 +37,12 @@ def repeat(update: Update, context: CallbackContext):
     if len(update.message.text) > 50:
         # do not flood
         return
-    t = strip(update.message.text).replace('我', '你')
+    t = strip(update.message.text)
+    if '我' in t and '你' in t:
+      t = t.replace('你', '他')
+      t = t.replace('我', '你')
+    elif '我' in t:
+      t = t.replace('我', '你')
     length = len(t)
     chat_id = update.effective_chat.id
     if 1 <= length <= 30 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
