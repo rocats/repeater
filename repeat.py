@@ -37,14 +37,14 @@ def repeat(update: Update, context: CallbackContext):
     if len(update.message.text) > 50:
         # do not flood
         return
-    t = strip(update.message.text)
+    t = strip(update.message.text).replace('我', '你')
     length = len(t)
     chat_id = update.effective_chat.id
     if 1 <= length <= 30 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
         # repeat 3 times with "!"
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id,
-                                 text=(strip_punctuation(update.message.text) + "！") * 3)
+                                 text=(strip_punctuation(t) + "！") * 3)
 #     elif length == 0:
 #         # just repeat it
 #         repeated[chat_id] = True
@@ -54,7 +54,7 @@ def repeat(update: Update, context: CallbackContext):
         # repeat as follower
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id,
-                                 text=update.message.text)
+                                 text=t)
     if update.message.text != last_text[chat_id]:
         last_text[chat_id] = update.message.text
         cnt[chat_id] = 1
