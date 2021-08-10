@@ -34,13 +34,13 @@ def repeat(update: Update, context: CallbackContext):
     global last_text, repeated, cnt
     if update.message is None:
         return
-    if len(update.message.text) > 20:
+    if len(update.message.text) > 50:
         # do not flood
         return
     t = strip(update.message.text)
     length = len(t)
     chat_id = update.effective_chat.id
-    if 1 <= length <= 10 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
+    if 1 <= length <= 30 and (update.message.text.endswith("！") or update.message.text.endswith("!")):
         # repeat 3 times with "!"
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id,
