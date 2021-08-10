@@ -6,11 +6,14 @@ from collections import defaultdict
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
-
+punctuations = ''.join(list(chr(i) for i in range(sys.maxunicode)
+                            if unicodedata.category(chr(i)).startswith('P')))
 last_text = defaultdict(str)
 cnt = defaultdict(int)
 repeated = defaultdict(bool)
 
+def strip_punctuation(s: str):
+    return s.strip(punctuations)
 
 def repeat(update: Update, context: CallbackContext):
     global last_text, repeated, cnt
