@@ -2,7 +2,6 @@ import unicodedata
 import sys
 
 from collections import defaultdict
-from typing import Optional
 
 
 from telegram import Update
@@ -11,7 +10,7 @@ from telegram.ext.callbackcontext import CallbackContext
 
 punctuations = ''.join(list(chr(i) for i in range(sys.maxunicode)
                             if unicodedata.category(chr(i)).startswith('P')))
-last_text = defaultdict(Optional[str])
+last_text = defaultdict(str)
 cnt = defaultdict(int)
 repeated = defaultdict(bool)
 
@@ -57,4 +56,4 @@ def repeat(update: Update, context: CallbackContext):
 
 def clean_repeat(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
-    last_text[chat_id] = None
+    last_text[chat_id] = ""
