@@ -7,7 +7,7 @@ from telegram import Bot, Update, Message
 from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext import (Updater, MessageHandler, Filters, CommandHandler,
                           PicklePersistence)
-from repeat import repeat
+from repeat import repeat, clean_repeat
 
 token = os.getenv('TELEGRAM_APITOKEN')
 bot = Bot(token=token)
@@ -32,6 +32,9 @@ def main():
     # log all errors
     dp.add_error_handler(error)
 
+    # add repeat clear handler
+    dp.add_handler(MessageHandler(Filters.photo | Filters.audio | Filters.document | Filters.dice | Filters.video |
+                                  Filters.location | Filters.poll, clean_repeat))
     # add repeat handler
     dp.add_handler(MessageHandler(Filters.text & (~Filters.command), repeat))
 
