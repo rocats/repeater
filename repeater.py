@@ -32,11 +32,11 @@ def main():
     # log all errors
     dp.add_error_handler(error)
 
-    # add repeat clear handler
-    dp.add_handler(MessageHandler(Filters.photo | Filters.audio | Filters.document | Filters.dice | Filters.video |
-                                  Filters.location | Filters.poll, clean_repeat))
+    repeat_filters = Filters.text & ~Filters.command
     # add repeat handler
-    dp.add_handler(MessageHandler(Filters.text & (~Filters.command), repeat))
+    dp.add_handler(MessageHandler(repeat_filters, repeat))
+    # add repeat clear handler
+    dp.add_handler(MessageHandler(Filters.all & ~repeat_filters, repeat))
 
     # Start the Bot
     updater.start_polling()
