@@ -19,7 +19,7 @@ def strip_punctuation(s: str):
 
 def repeat(update: Update, context: CallbackContext):
     global last_text, repeated, cnt
-    if update.message is None:
+    if update.message is None or update.message.text is None:
         return
     if len(update.message.text) > 50:
         # do not flood
