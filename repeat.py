@@ -25,7 +25,7 @@ def repeat(update: Update, context: CallbackContext):
         # do not flood
         return
     t = update.message.text.strip()
-    e = update.message.entities()
+    e = update.message.entities
     if '我' in t and '你' in t:
       t = t.replace('你', '他').replace('我', '你')
     elif '我' in t:
