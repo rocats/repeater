@@ -25,6 +25,9 @@ def repeat(update: Update, context: CallbackContext):
     if len(update.message.text) > 50:
         # do not flood
         return
+    if update.message.sender_chat is not None:
+        # ignore messages sent on behalf of a channel
+        return
     t = update.message.text.strip()
     e = update.message.entities
     f = update.message.from_user.id
