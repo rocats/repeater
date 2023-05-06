@@ -121,6 +121,6 @@ def repeat(update: Update, context: CallbackContext):
         cnt[chat_id] += 1
 
 
-def clean_repeat(update: Update, context: CallbackContext):
+def clean_repeat(update: Update):
     chat_id = update.effective_chat.id
     last_text[chat_id] = ""
