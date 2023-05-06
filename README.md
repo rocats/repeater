@@ -28,12 +28,6 @@ If you want to use it in a group and receive all messages, don't forget to `/set
 
 ## Database
 
-Install prerequisites
-
-```bash
-npm i -g vercel
-```
-
 SQLite CLI Client
 
 ```bash
@@ -41,9 +35,18 @@ pip3 install litecli
 litecli remote.db
 ```
 
+Preview tables
+
+```bash
+datasette remote.db
+```
+
 Publish
 
 ```bash
+# install prerequisites
+npm i -g vercel
+
 # generate config
 datasette publish vercel test.db \
   --project=test-sqlite \
