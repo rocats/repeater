@@ -1,7 +1,10 @@
-FROM python:3.9-slim-bullseye
+FROM python:3.10-bullseye
+
 WORKDIR /repeater
-RUN apt update && apt install -y build-essential libffi-dev libssl-dev libssl-dev python-dev
+
 ADD requirements.txt ./
 RUN pip install -r requirements.txt
-ADD . .
+
+ADD *.py .
+
 ENTRYPOINT ["python", "repeater.py"]
