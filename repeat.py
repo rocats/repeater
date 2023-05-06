@@ -42,7 +42,6 @@ def repeat(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
 
     print(update.message)
-    print(sticker_lib)
 
     # --- sticker  --- #
     if update.message.sticker is not None:
