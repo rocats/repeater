@@ -2,6 +2,7 @@ version: "3"
 
 services:
   repeater:
+    container_name: repeater-v2
     build:
       context: .
     environment:
