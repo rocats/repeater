@@ -42,24 +42,40 @@ def repeat(update: Update, context: CallbackContext):
     t = update.message.text.strip()
     e = update.message.entities
     f = update.message.from_user.id
+    # repeat target text
     if "我" in t and "你" in t:
         t = t.replace("你", "他").replace("我", "你")
     elif "我" in t:
         t = t.replace("我", "你")
+    elif "屌" in t or "嗯" in t or "好的" in t:
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id, text=t)
     chat_id = update.effective_chat.id
+    # repeat 3 times with "!"
     if 1 <= len(update.message.text) <= 30 and (
         update.message.text.endswith("！") or update.message.text.endswith("!")
     ):
-        # repeat 3 times with "!"
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id, text=(strip_punctuation(t) + "！") * 3)
+    # repeat 3 times with "～"
+    elif 1 <= len(update.message.text) <= 30 and (
+        update.message.text.endswith("～") or update.message.text.endswith("~")
+    ):
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id, text=(strip_punctuation(t) + "~") * 3)
+    # repeat with "..."
+    elif 1 <= len(update.message.text) <= 30 and (
+        update.message.text.endswith("...") or update.message.text.endswith("。。。")
+    ):
+        repeated[chat_id] = True
+        context.bot.send_message(chat_id=chat_id, text=t)
+    # repeat as follower
     elif (
         f != last_sender[chat_id]
         and update.message.text == last_text[chat_id]
         and cnt[chat_id] >= 1
         and not repeated[chat_id]
     ):
-        # repeat as follower
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id, text=t, entities=e)
     last_sender[chat_id] = f
