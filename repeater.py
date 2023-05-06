@@ -5,16 +5,22 @@ import logging
 import os
 from telegram import Bot, Update, Message
 from telegram.ext.callbackcontext import CallbackContext
-from telegram.ext import (Updater, MessageHandler, Filters, CommandHandler,
-                          PicklePersistence)
+from telegram.ext import (
+    Updater,
+    MessageHandler,
+    Filters,
+    CommandHandler,
+    PicklePersistence,
+)
 from repeat import repeat, clean_repeat
 
-token = os.getenv('TELEGRAM_APITOKEN')
+token = os.getenv("TELEGRAM_APITOKEN")
 bot = Bot(token=token)
 
 # Enable logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 logger = logging.getLogger(__name__)
 
@@ -47,5 +53,5 @@ def main():
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
