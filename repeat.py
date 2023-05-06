@@ -47,10 +47,10 @@ def repeat(update: Update, context: CallbackContext):
         t = t.replace("你", "他").replace("我", "你")
     elif "我" in t:
         t = t.replace("我", "你")
-    elif "屌" in t or "嗯" in t or "好的" in t:
+    chat_id = update.effective_chat.id
+    if "屌" in t or "嗯" in t or "好的" in t or "好吧" in t:
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id, text=t)
-    chat_id = update.effective_chat.id
     # repeat 3 times with "!"
     if 1 <= len(update.message.text) <= 30 and (
         update.message.text.endswith("！") or update.message.text.endswith("!")
