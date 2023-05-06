@@ -1,9 +1,13 @@
+altgraph==0.17.3
 APScheduler==3.6.3
+cachetools==4.2.2
 certifi==2020.11.8
 cffi==1.14.3
 cryptography==3.2.1
 decorator==4.4.2
 pycparser==2.20
+pyinstaller==5.10.1
+pyinstaller-hooks-contrib==2023.2
 python-telegram-bot==13.9
 pytz==2020.4
 six==1.15.0
