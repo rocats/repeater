@@ -5,6 +5,6 @@ WORKDIR /repeater
 ADD requirements.txt ./
 RUN pip install -r requirements.txt
 
-ADD *.py .
+COPY *.py *.json ./
 
 ENTRYPOINT ["python", "repeater.py"]
