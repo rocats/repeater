@@ -1,0 +1,16 @@
+{
+    "name": "repeater-bot-sqlite",
+    "version": 2,
+    "builds": [
+        {
+            "src": "index.py",
+            "use": "@vercel/python@3.0.7"
+        }
+    ],
+    "routes": [
+        {
+            "src": "(.*)",
+            "dest": "index.py"
+        }
+    ]
+}
