@@ -1,21 +1,17 @@
 import unicodedata
 import sys
 import json
-import itertools
-from typing import List, Any
 
+from typing import List
 from collections import defaultdict
-
-
+from urllib.request import urlopen
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
 
-def load_sticker_library(file: str) -> List[Any]:
-    with open(file) as lib:
-        data = json.load(lib)
-        combined = [item[1] for item in data.items()]
-        return list(itertools.chain.from_iterable(combined))
+def load_sticker_library(url: str) -> List[str]:
+    data = json.loads(urlopen(url).read().decode("utf-8"))["rows"]
+    return [item[2] for item in data]
 
 
 punctuations = "".join(
@@ -30,7 +26,9 @@ last_sender = defaultdict(int)
 cnt = defaultdict(int)
 repeated = defaultdict(bool)
 
-sticker_lib = load_sticker_library("./stickers.json")
+sticker_lib = load_sticker_library(
+    "https://repeater-bot-sqlite.vercel.app/remote/stickers.json"
+)
 
 
 def strip_punctuation(s: str):
