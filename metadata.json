@@ -2,7 +2,7 @@
   "plugins": {
     "datasette-insert": {
       "allow": {
-        "app_id": "repeater"
+        "id": "*"
       }
     },
     "datasette-auth-tokens": {
@@ -12,10 +12,11 @@
             "$env": "INSERT_TOKEN"
           },
           "actor": {
-            "app_id": "repeater"
+            "id": "repeater"
           }
         }
-      ]
+      ],
+      "param": "_auth_token"
     }
   }
 }
