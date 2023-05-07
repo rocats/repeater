@@ -7,4 +7,4 @@ dist/
 build/
 *.spec
 *.db
-*.key
+age.key
