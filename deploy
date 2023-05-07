@@ -1,0 +1,9 @@
+#!/bin/bash
+
+datasette publish vercel remote.db \
+  --project=repeater-bot-sqlite \
+  --metadata metadata.json \
+  --install datasette-auth-tokens \
+  --install datasette-insert \
+  --vercel-json=vercel.json
+
