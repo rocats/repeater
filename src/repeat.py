@@ -19,6 +19,9 @@ sticker_lib = load_library(
     "https://repeater-bot-sqlite.vercel.app/remote/stickers.json"
 )
 char_lib = load_library("https://repeater-bot-sqlite.vercel.app/remote/words.json")
+animation_lib = load_library(
+    "https://repeater-bot-sqlite.vercel.app/remote/animations.json"
+)
 
 punctuations = "".join(
     list(
@@ -56,6 +59,21 @@ def repeat(update: Update, context: CallbackContext):
             context.bot.send_sticker(
                 chat_id=chat_id,
                 sticker=update.message.sticker.file_id,
+            )
+
+    # --- animation  --- #
+    if update.message.animation is not None:
+        animation_uid = (
+            update.message.animation.file_unique_id
+            if update.message.animation != None
+            else ""
+        )
+
+        # repeat target animation
+        if animation_uid in animation_lib:
+            context.bot.send_animation(
+                chat_id=chat_id,
+                animation=update.message.animation.file_id,
             )
 
     # --- message --- #
