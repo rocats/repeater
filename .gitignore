@@ -1,3 +1,4 @@
+.env
 .idea
 .vscode
 venv
@@ -6,3 +7,4 @@ dist/
 build/
 *.spec
 *.db
+*.key
