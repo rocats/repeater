@@ -64,3 +64,5 @@ datasette publish vercel test.db \
 - [litecli](https://github.com/dbcli/litecli)
 - [datasette](https://github.com/simonw/datasette)
 - [datasette-publish-vercel](https://github.com/simonw/datasette-publish-vercel)
+- [datasette-auth-tokens](https://github.com/simonw/datasette-auth-tokens)
+- [datasette-insert](https://github.com/simonw/datasette-insert)
