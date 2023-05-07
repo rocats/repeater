@@ -1,0 +1,21 @@
+{
+  "plugins": {
+    "datasette-insert": {
+      "allow": {
+        "app_id": "repeater"
+      }
+    },
+    "datasette-auth-tokens": {
+      "tokens": [
+        {
+          "token": {
+            "$env": "INSERT_TOKEN"
+          },
+          "actor": {
+            "app_id": "repeater"
+          }
+        }
+      ]
+    }
+  }
+}
