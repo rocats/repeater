@@ -13,9 +13,10 @@ cursor = con.cursor()
 # cursor.execute("create table words (uid text, content varchar(50), count int)";
 
 # write
-cursor.execute(
-    f"insert into words(uid, content, count) values('{gen_uid()}','屌',0),('{gen_uid()}','嗯',0),('{gen_uid()}','好的',0),('{gen_uid()}','好吧',0),('{gen_uid()}','羨慕',0),('{gen_uid()}','额',0),('{gen_uid()}','hhh',0);"
-)
+# cursor.execute(
+#     f"insert into words(uid, content, count) values('{gen_uid()}','屌',0),('{gen_uid()}','嗯',0),('{gen_uid()}','好的',0),('{gen_uid()}','好吧',0),('{gen_uid()}','羨慕',0),('{gen_uid()}','额',0),('{gen_uid()}','hhh',0);"
+# )
+cursor.execute(f"insert into words(uid, content, count) values('{gen_uid()}','不愧是',0)")
 
 # read
 rows = cursor.execute("SELECT * FROM words").fetchall()
