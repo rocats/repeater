@@ -20,12 +20,20 @@ WORKDIR /app
 ADD ./ci/prod.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
-COPY *.py ./
+COPY src/* ./
 RUN pyinstaller repeater.py
 
 # === Prod Stage === #
 
 FROM debian:bullseye-slim as prod
+
+RUN apt update -y && \
+    apt-get install -y --no-install-recommends \
+    ca-certificates
+
+RUN apt-get clean autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 WORKDIR /app
 
