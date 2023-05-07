@@ -68,3 +68,4 @@ npm i -g vercel
 - [datasette-publish-vercel](https://github.com/simonw/datasette-publish-vercel)
 - [datasette-auth-tokens](https://github.com/simonw/datasette-auth-tokens)
 - [datasette-insert](https://github.com/simonw/datasette-insert)
+- [datasette-clone](https://github.com/simonw/datasette-clone)
