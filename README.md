@@ -35,7 +35,7 @@ pip3 install litecli
 litecli remote.db
 ```
 
-Preview tables
+Spin up a local server to view tables
 
 ```bash
 datasette remote.db
