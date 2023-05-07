@@ -30,7 +30,6 @@ FROM debian:bullseye-slim as prod
 WORKDIR /app
 
 COPY --from=builder /app/dist/repeater/ ./
-COPY *.json ./
 
 RUN chmod +x ./repeater
 
