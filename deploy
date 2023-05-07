@@ -5,5 +5,6 @@ datasette publish vercel remote.db \
   --metadata metadata.json \
   --install datasette-auth-tokens \
   --install datasette-insert \
+  --extra-options "--create --host 0.0.0.0 --cors" \
   --vercel-json=vercel.json
 
