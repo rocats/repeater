@@ -9,10 +9,16 @@ from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 
 
-def load_sticker_library(url: str) -> List[str]:
+def load_library(url: str) -> List[str]:
     data = json.loads(urlopen(url).read().decode("utf-8"))["rows"]
     return [item[2] for item in data]
 
+
+# load libraries
+sticker_lib = load_library(
+    "https://repeater-bot-sqlite.vercel.app/remote/stickers.json"
+)
+char_lib = load_library("https://repeater-bot-sqlite.vercel.app/remote/words.json")
 
 punctuations = "".join(
     list(
@@ -25,10 +31,6 @@ last_text = defaultdict(str)
 last_sender = defaultdict(int)
 cnt = defaultdict(int)
 repeated = defaultdict(bool)
-
-sticker_lib = load_sticker_library(
-    "https://repeater-bot-sqlite.vercel.app/remote/stickers.json"
-)
 
 
 def strip_punctuation(s: str):
@@ -79,7 +81,7 @@ def repeat(update: Update, context: CallbackContext):
         t = t.replace("你", "他").replace("我", "你")
     elif "我" in t:
         t = t.replace("我", "你")
-    if "屌" in t or "嗯" in t or "好的" in t or "好吧" in t or "羨慕" in t:
+    if len([True for char in char_lib if char in t]) > 0:
         repeated[chat_id] = True
         context.bot.send_message(chat_id=chat_id, text=t)
     # repeat 3 times with "!"
