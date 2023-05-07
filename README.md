@@ -41,21 +41,23 @@ Preview tables
 datasette remote.db
 ```
 
+Initialize metadata (ONLY done once)
+
+```bash
+datasette publish vercel remote.db \
+  --project=repeater-bot-sqlite \
+  --generate-vercel-json > vercel.json
+```
+
 Publish
 
 ```bash
 # install prerequisites
 npm i -g vercel
 
-# generate config
-datasette publish vercel test.db \
-  --project=test-sqlite \
-  --generate-vercel-json > vercel.json
 
 # deploy with config
-datasette publish vercel test.db \
-  --project=test-sqlite \
-  --vercel-json=vercel.json
+./deploy
 ```
 
 ## References
