@@ -12,8 +12,8 @@ Run locally
 
 ```bash
 # activate virtualenv
-./venv/bin/activate
-TELEGRAM_APITOKEN=<TOKEN> python3 repeater.py
+export TELEGRAM_APITOKEN=<TOKEN>
+./serve
 ```
 
 Run as container
