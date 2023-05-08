@@ -1,27 +1,11 @@
 import unicodedata
 import sys
-import json
 
-from typing import List
 from collections import defaultdict
-from urllib.request import urlopen
 from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
+from tool.loader import char_lib, animation_lib, sticker_lib
 
-
-def load_library(url: str) -> List[str]:
-    data = json.loads(urlopen(url).read().decode("utf-8"))["rows"]
-    return [item[2] for item in data]
-
-
-# load libraries
-sticker_lib = load_library(
-    "https://repeater-bot-sqlite.vercel.app/remote/stickers.json"
-)
-char_lib = load_library("https://repeater-bot-sqlite.vercel.app/remote/words.json")
-animation_lib = load_library(
-    "https://repeater-bot-sqlite.vercel.app/remote/animations.json"
-)
 
 punctuations = "".join(
     list(

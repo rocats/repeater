@@ -5,7 +5,7 @@
 # |_|  \___| .__/ \___|\__,_|\__\___|_|
 #          |_|
 #
-#  https://github.com/yqlbu/repeater
+#  https://github.com/rocats/repeater-v2
 #
 #  Copyright (C) 2023 @yqlbu
 #
@@ -21,7 +21,7 @@ ADD ./ci/prod.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
 COPY src/* ./
-RUN pyinstaller repeater.py
+RUN pyinstaller index.py
 
 # === Prod Stage === #
 
@@ -37,8 +37,8 @@ RUN apt-get clean autoclean && \
 
 WORKDIR /app
 
-COPY --from=builder /app/dist/repeater/ ./
+COPY --from=builder /app/dist/index/ ./
 
-RUN chmod +x ./repeater
+RUN chmod +x ./index
 
-CMD ["./repeater"]
+CMD ["./index"]
