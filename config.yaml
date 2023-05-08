@@ -1,0 +1,4 @@
+app:
+  debug: yes
+  env: dev
+  log_level: debug
