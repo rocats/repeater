@@ -5,6 +5,8 @@ services:
     container_name: repeater-v2
     build:
       context: .
+      args:
+        PYTHON_VERSION: "3.10"
     environment:
       - TELEGRAM_APITOKEN
     restart: unless-stopped

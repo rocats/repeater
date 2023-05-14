@@ -6,4 +6,3 @@ top=$(cd $(dirname $0); pwd)
 
 ${top}/venv/bin/python3 src/repeater.py
 
-

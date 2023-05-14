@@ -13,19 +13,23 @@
 #  See /License for more information.
 
 # === Build Stage === #
-FROM python:3.10-bullseye as builder
+ARG PYTHON_VERSION
+
+FROM python:${PYTHON_VERSION}-bullseye as builder
 
 WORKDIR /app
 
 ADD ./ci/prod.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
-COPY src/* ./
+COPY src/ ./
 RUN pyinstaller index.py
 
 # === Prod Stage === #
 
 FROM debian:bullseye-slim as prod
+
+ARG PYTHON_VERSION
 
 RUN apt update -y && \
     apt-get install -y --no-install-recommends \
@@ -37,6 +41,7 @@ RUN apt-get clean autoclean && \
 
 WORKDIR /app
 
+COPY --from=builder /usr/local/lib/python${PYTHON_VERSION}/site-packages/opencc/clib/share/opencc opencc/clib/share/opencc/
 COPY --from=builder /app/dist/index/ ./
 
 RUN chmod +x ./index

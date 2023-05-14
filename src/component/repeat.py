@@ -83,7 +83,7 @@ def repeat(update: Update, context: CallbackContext):
 
     # convert traditional char to simplified char
     if is_traditional:
-        t = tc.convert(strip_punctuation(t))
+        t = tc.convert(t)
 
     # repeat target text
     if "我" in t and "你" in t:
