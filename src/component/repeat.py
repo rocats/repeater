@@ -6,6 +6,8 @@ from telegram import Update
 from telegram.ext.callbackcontext import CallbackContext
 from tool.loader import char_lib, animation_lib, sticker_lib
 
+from component.text_converter import tc
+
 
 punctuations = "".join(
     list(
@@ -77,6 +79,11 @@ def repeat(update: Update, context: CallbackContext):
     t = update.message.text.strip()
     e = update.message.entities
     f = update.message.from_user.id
+    is_traditional = tc.check_traditional(update.message.text)
+
+    # convert traditional char to simplified char
+    if is_traditional:
+        t = tc.convert(strip_punctuation(t))
 
     # repeat target text
     if "我" in t and "你" in t:
